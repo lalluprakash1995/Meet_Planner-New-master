@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <ListView
+
+        android:id="@+id/hosplist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/multiple_actions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="end|bottom"
+        android:layout_marginBottom="139dp"
+        android:layout_marginEnd="25dp"
+        android:gravity="right"
+
+        app:fab_addButtonColorNormal="@color/colorAccent"
+        app:fab_addButtonColorPressed="#fff"
+        app:fab_addButtonPlusIconColor="#fff">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Today!"
+                android:textColor="#000" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_today"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="#fff"
+                app:fab_colorPressed="#fff"
+                android:src="@drawable/tomorrow_icon_small"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tomorrow!"
+                android:textColor="#000" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_tomorrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="#fff"
+                app:fab_colorPressed="#fff"
+                android:src="@drawable/tomorrow_icon_small"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This week!"
+                android:textColor="#000" />
+
+            <com.getbase.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_week"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:fab_colorNormal="#fff"
+                app:fab_colorPressed="#fff"
+                android:layout_gravity="fill"
+                android:src="@drawable/week_icon"/>
+        </LinearLayout>
+
+
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="74dp"
+        android:layout_marginEnd="33dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create new Meeting"
+            android:textColor="#50c84c" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_add_meeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:background="#fff"
+            android:clickable="true"
+            android:src="@drawable/add_meeting_icon_white" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="33dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear all Meeting"
+            android:textColor="#e15351" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_delete_meeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:background="#f1e8e8"
+            android:clickable="true"
+
+            android:backgroundTint="#de2727"
+             app:fab_size="mini"
+            android:src="@drawable/ic_delete_forever_black_24dp" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

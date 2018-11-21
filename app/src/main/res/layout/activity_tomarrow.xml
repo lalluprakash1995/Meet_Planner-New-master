@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TomarrowActivity">
+
+
+    <ListView  android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/meetingtomorrow"
+
+        >
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="14dp"
+        android:layout_marginEnd="33dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear all Meeting"
+            android:textColor="#e15351" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_delete_meetingtoday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:background="#f1e8e8"
+            android:clickable="true"
+            android:backgroundTint="#d61616"
+            android:src="@drawable/ic_delete_forever_black_24dp" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
