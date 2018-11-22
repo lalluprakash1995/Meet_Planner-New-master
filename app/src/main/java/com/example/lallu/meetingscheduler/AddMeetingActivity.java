@@ -366,7 +366,11 @@ if (check==true && flag==0 && flag1==0 ) {
 
 
 
-
+ArrayList<String> sample=dbconnect.getMeetingsByDate("23/11/2018");
+//sample=dbconnect.getMeetingsByDate()
+for (int i=0;i<sample.size();i++){
+    Log.e("Arryadata:",sample.get(i));
+}
 
 
     }

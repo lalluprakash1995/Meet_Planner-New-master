@@ -119,8 +119,23 @@ public class DBHelper extends SQLiteOpenHelper {
         return true;
     }
 
+// Select meetings by date
 
+public ArrayList<String> getMeetingsByDate(String date) {
+    ArrayList<String> array_list = new ArrayList<String>();
 
+    SQLiteDatabase db = this.getReadableDatabase();
+    Cursor res =  db.rawQuery( "select Meeting_title from SchedledMeetings where Meeting_Scheduled= '"+date+"';", null );
+    res.moveToFirst();
+
+    while(res.isAfterLast() == false){
+        array_list.add(res.getString(res.getColumnIndex(KEY_TITLE)));
+        res.moveToNext();
+    }
+    return array_list;
+}
+
+//ends
 
 
 
