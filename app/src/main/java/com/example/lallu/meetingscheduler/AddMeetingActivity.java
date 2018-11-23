@@ -33,7 +33,9 @@ import static android.content.ContentValues.TAG;
 public class AddMeetingActivity extends AppCompatActivity {
     int flag=0,flag1=0;
     int shour,smins,ehour,emins;
-    Date d1,d3;
+    String d1;
+    String d3;
+    Boolean dateflag=false;
 
     EditText pickdate,starttime,endtime,phonenum,agenda,meetingtitle,locton;
     String amPm,strlocation="aaaaaaaa";
@@ -77,8 +79,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
 dbconnect=new DBHelper(this);
 
-        final int[] d1 = new int[1];
-        final int[] d3 = new int[1];
+
         // To choose the meeting Date
 
         final DatePickerDialog.OnDateSetListener date=new DatePickerDialog.OnDateSetListener() {
@@ -114,8 +115,10 @@ dbconnect=new DBHelper(this);
         starttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Calendar strttime=Calendar.getInstance();
+                final Calendar strttime=Calendar.getInstance();
+
                 final int hour=strttime.get(Calendar.HOUR_OF_DAY);
+
                 int mins=strttime.get(Calendar.MINUTE);
 
                 TimePickerDialog mtimePickerDialog=new TimePickerDialog(AddMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
@@ -135,8 +138,21 @@ dbconnect=new DBHelper(this);
                         shour=hourOfDay;smins=minute;
                         String abc=String.format("%02d:%02d", hourOfDay, minute) + amPm;
                         String newString = abc.replace("00", "12");
+//                        if (d1.compareTo(d3)==0){
+//                            if (hour<hourOfDay){
+//                                starttime.setError("invalid time");
+//                            }
+//                            else {
+//                                starttime.setError(null);
+//                                starttime.setText(newString);
+//
+//                            }
+//                        }
+//                        else {
+                            starttime.setText(newString);
+//                        }
 
-                        starttime.setText(newString);
+
                        // starttime.setText(""+hourOfDay+":"+minute+" "+amPm);
                     }
                 },hour,mins,false);
@@ -198,12 +214,23 @@ dbconnect=new DBHelper(this);
             sdf = new SimpleDateFormat(myFormat,Locale.US);
         }
 
-         d1=calender.getTime();
-        d3 = Calendar.getInstance().getTime(); //System.out.println("Current time => " + c);
+         d1=sdf.format(calender.getTime());
+        d3 = sdf.format(Calendar.getInstance().getTime()); //System.out.println("Current time => " + c);
       if (d1.compareTo(d3)<0){
+        //  Toast.makeText(AddMeetingActivity.this, ""+d1.compareTo(d3), Toast.LENGTH_SHORT).show();
+         int a=d1.compareTo(d3);
+         System.out.print(a);
           pickdate.setError("Invalid Date");
       }
-      else{
+      else if (d1.compareTo(d3)==0 ){
+          int a=d1.compareTo(d3);
+          pickdate.setError(null);
+          pickdate.setText(sdf.format(calender.getTime()));
+          dateflag=true;
+
+      }
+      else {
+          int a=d1.compareTo(d3);
           pickdate.setError(null);
           pickdate.setText(sdf.format(calender.getTime()));
 

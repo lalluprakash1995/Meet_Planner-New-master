@@ -43,6 +43,7 @@ public class AllMeetings extends AppCompatActivity {
     DBHelper mydbhelper;
     FloatingActionButton addmeetingfab,deleteallmeetings;
     com.getbase.floatingactionbutton.FloatingActionButton weekfab,tomorrowfab,todayfab;
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +94,34 @@ public class AllMeetings extends AppCompatActivity {
                 startActivity(new Intent(AllMeetings.this,TomarrowActivity.class));
             }
         });
+
+        // delete expired meetings
+        Date c = Calendar.getInstance().getTime(); System.out.println("Current time => " + c);
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        String current_Date = df.format(c);
+        Log.e("Current_Date=",current_Date);
+        //tommoroow
+        String dt = current_Date;
+        int x = -1;
+        Calendar cal = GregorianCalendar.getInstance();
+        cal.add( Calendar.DAY_OF_YEAR, x);
+        Date sevenDaysAfter = cal.getTime();
+        String previousday=df.format(sevenDaysAfter);
+        Log.e("Prevoius",previousday);
+
+        mydbhelper.deleteTomorrow(previousday);
+
+
+
+
+
+
+
+
+
+
+
+
         meetinghead=mydbhelper.getAllCotacts();
         meetingdate=mydbhelper.getAllDates();
 
@@ -159,6 +188,11 @@ public class AllMeetings extends AppCompatActivity {
 //                list.setAdapter(ad);
             }
         });
+
+
+
+
+
 
     }
     protected void onResume() {
