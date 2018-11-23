@@ -12,6 +12,7 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -121,25 +122,41 @@ public class DBHelper extends SQLiteOpenHelper {
 
 // Select meetings by date
 
-public ArrayList<String> getMeetingsByDate(String date) {
-    ArrayList<String> array_list = new ArrayList<String>();
+@RequiresApi(api = Build.VERSION_CODES.N)
+public ArrayList<String> getMeetingsByDate() {
+    String nextday = null;
+    ArrayList<String> array_list = null;
+        
+        
+         //finding dates of 7 days 
+    Date c = Calendar.getInstance().getTime(); System.out.println("Current time => " + c);
+    SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+    String current_Date = df.format(c);
+    Log.e("Current_Date=",current_Date);
+    //tommoroow
+    String dt = current_Date;
+    int x = 1;
+    Calendar cal = GregorianCalendar.getInstance();
+    array_list = new ArrayList<String>();
+    for (int i=1;i<8;i++){
+        cal.add( Calendar.DAY_OF_YEAR, x);
+        Date sevenDaysAfter = cal.getTime();
+         nextday=df.format(sevenDaysAfter);
+        Log.e("next",nextday);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select Meeting_title from SchedledMeetings where Meeting_Scheduled= '"+nextday+"';", null );
+        res.moveToFirst();
 
-    SQLiteDatabase db = this.getReadableDatabase();
-    Cursor res =  db.rawQuery( "select Meeting_title from SchedledMeetings where Meeting_Scheduled= '"+date+"';", null );
-    res.moveToFirst();
+        while(res.isAfterLast() == false){
+            array_list.add(res.getString(res.getColumnIndex(KEY_TITLE)));
+            res.moveToNext();
+        }
 
-    while(res.isAfterLast() == false){
-        array_list.add(res.getString(res.getColumnIndex(KEY_TITLE)));
-        res.moveToNext();
-    }
+    }    
+    
+
     return array_list;
 }
-
-//ends
-
-
-
-
 
     public Integer deleteContact (String id) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -222,6 +239,7 @@ public ArrayList<String> getAllMeetings() {
     // choose current date
     Date c = Calendar.getInstance().getTime(); System.out.println("Current time => " + c);
     SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+
     String current_Date = df.format(c);
     Log.e("Current_Date=",current_Date);
 
@@ -229,18 +247,14 @@ public ArrayList<String> getAllMeetings() {
 
     String dt = current_Date;
     int x = 7;
+    Date date1 = null;
     Calendar cal = GregorianCalendar.getInstance();
     cal.add( Calendar.DAY_OF_YEAR, x);
     Date sevenDaysAfter = cal.getTime();
+    Log.e("Next date",""+sevenDaysAfter);
     String nextweek=df.format(sevenDaysAfter);
     Log.e("next",nextweek);
-
-
-
-
-
-
-
+    // to check date
 
 
     try {

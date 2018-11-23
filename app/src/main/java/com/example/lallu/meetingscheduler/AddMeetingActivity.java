@@ -33,6 +33,7 @@ import static android.content.ContentValues.TAG;
 public class AddMeetingActivity extends AppCompatActivity {
     int flag=0,flag1=0;
     int shour,smins,ehour,emins;
+    Date d1,d3;
 
     EditText pickdate,starttime,endtime,phonenum,agenda,meetingtitle,locton;
     String amPm,strlocation="aaaaaaaa";
@@ -76,7 +77,8 @@ public class AddMeetingActivity extends AppCompatActivity {
 
 dbconnect=new DBHelper(this);
 
-
+        final int[] d1 = new int[1];
+        final int[] d3 = new int[1];
         // To choose the meeting Date
 
         final DatePickerDialog.OnDateSetListener date=new DatePickerDialog.OnDateSetListener() {
@@ -86,6 +88,7 @@ dbconnect=new DBHelper(this);
                 calender.set(Calendar.YEAR,year);
                 calender.set(Calendar.MONTH,month);
                 calender.set(Calendar.DAY_OF_MONTH,dayOfMonth);
+              //   d1[0] =dayOfMonth;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     upDateLabel();
                 }
@@ -99,6 +102,8 @@ dbconnect=new DBHelper(this);
                 new DatePickerDialog(AddMeetingActivity.this, date, calender
                         .get(Calendar.YEAR), calender.get(Calendar.MONTH),
                         calender.get(Calendar.DAY_OF_MONTH)).show();
+              //  d3[0] =Calendar.DAY_OF_MONTH;
+
             }
         });
 
@@ -192,7 +197,19 @@ dbconnect=new DBHelper(this);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
             sdf = new SimpleDateFormat(myFormat,Locale.US);
         }
-        pickdate.setText(sdf.format(calender.getTime()));
+
+         d1=calender.getTime();
+        d3 = Calendar.getInstance().getTime(); //System.out.println("Current time => " + c);
+      if (d1.compareTo(d3)<0){
+          pickdate.setError("Invalid Date");
+      }
+      else{
+          pickdate.setError(null);
+          pickdate.setText(sdf.format(calender.getTime()));
+
+      }
+
+
     }
 
     public void SelectFromContacts(View view) {
@@ -363,15 +380,6 @@ if (check==true && flag==0 && flag1==0 ) {
         Toast.makeText(getApplicationContext(), "Failed", Toast.LENGTH_SHORT).show();
     }
 }
-
-
-
-ArrayList<String> sample=dbconnect.getMeetingsByDate("23/11/2018");
-//sample=dbconnect.getMeetingsByDate()
-for (int i=0;i<sample.size();i++){
-    Log.e("Arryadata:",sample.get(i));
-}
-
 
     }
 
